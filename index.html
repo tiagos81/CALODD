@@ -7,63 +7,80 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #000000; /* Fundo Preto */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #FA3746; /* Cor da fonte */
+            text-align: center;
         }
         .container {
-            background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 600px;
+            background-color: transparent; /* Removido fundo branco */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centralizar conteúdo */
         }
         h1 {
-            text-align: center;
-            color: #fc410f;
+            color: #FC410F; /* Cor do título */
+            margin-bottom: 20px;
         }
         label {
             font-size: 16px;
             margin-bottom: 8px;
             display: block;
+            color: #FA3746;
         }
         input {
-            width: 100%;
+            width: 21%; /* Ajustado para 30% do tamanho anterior */
             padding: 10px;
             margin-bottom: 20px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background-color: #F5F5F5;
+            text-align: center;
         }
         .result {
             padding: 15px;
             background-color: #e6f7ff;
             border-radius: 8px;
             margin-top: 20px;
+            width: 100%;
+            text-align: left; /* Alinhar para a esquerda */
         }
         .result p {
             margin: 10px 0;
         }
         .button {
-            background-color: #fc410f;
+            background-color: #FC410F; /* Cor do botão */
             color: white;
             border: none;
             padding: 10px;
-            width: 100%;
+            width: 21%; /* Botão com a mesma largura da caixa das odds */
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
         }
         .button:hover {
-            background-color: #fa3746;
+            background-color: #FA3746; /* Cor ao passar o mouse */
         }
         .error {
             color: red;
+        }
+        .bold {
+            font-weight: bold; /* Deixar em negrito */
+        }
+        .green {
+            color: green;
+            font-weight: bold; /* Verde e negrito */
         }
     </style>
 </head>
@@ -106,7 +123,8 @@
         let lucroUnder = (oddsUnder * investimentoUnder) - stake;
 
         // Calcular arbitragem
-        let arbitragem = (1 / oddsOver) + (1 / oddsUnder) < 1 ? "Sim, há Arbitragem (Lucro Garantido)" : "Não há Arbitragem (Risco Reduzido)";
+        let arbitragemTexto = (1 / oddsOver) + (1 / oddsUnder) < 1 ? "Sim, há Arbitragem (Lucro Garantido)" : "Não há Arbitragem (Risco Reduzido)";
+        let arbitragemClasse = (1 / oddsOver) + (1 / oddsUnder) < 1 ? "green" : ""; // Se houver arbitragem, aplicar classe "green"
 
         // Calcular ROI e risco
         let roiOver = (lucroOver / stake) * 100;
@@ -115,14 +133,14 @@
 
         // Exibir os resultados
         document.getElementById('resultado').innerHTML = `
-            <p><strong>Investimento em Over: </strong>R$ ${investimentoOver.toFixed(2)}</p>
-            <p><strong>Investimento em Under: </strong>R$ ${investimentoUnder.toFixed(2)}</p>
-            <p><strong>Lucro em caso de Over: </strong>R$ ${lucroOver.toFixed(2)}</p>
-            <p><strong>Lucro em caso de Under: </strong>R$ ${lucroUnder.toFixed(2)}</p>
-            <p><strong>ROI (Over): </strong>${roiOver.toFixed(2)}%</p>
-            <p><strong>ROI (Under): </strong>${roiUnder.toFixed(2)}%</p>
-            <p><strong>Risco Percentual: </strong>${risco.toFixed(2)}%</p>
-            <p><strong>Arbitragem: </strong>${arbitragem}</p>
+            <p><span class="bold">Investimento em Over:</span> R$ ${investimentoOver.toFixed(2)}</p>
+            <p><span class="bold">Investimento em Under:</span> R$ ${investimentoUnder.toFixed(2)}</p>
+            <p><span class="bold">Lucro em caso de Over:</span> R$ ${lucroOver.toFixed(2)}</p>
+            <p><span class="bold">Lucro em caso de Under:</span> R$ ${lucroUnder.toFixed(2)}</p>
+            <p><span class="bold">ROI (Over):</span> ${roiOver.toFixed(2)}%</p>
+            <p><span class="bold">ROI (Under):</span> ${roiUnder.toFixed(2)}%</p>
+            <p><span class="bold">Risco Percentual:</span> ${risco.toFixed(2)}%</p>
+            <p><span class="bold">Arbitragem:</span> <span class="${arbitragemClasse}">${arbitragemTexto}</span></p>
         `;
     }
 </script>
