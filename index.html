@@ -82,6 +82,13 @@
             color: green;
             font-weight: bold; /* Verde e negrito */
         }
+        .positive {
+            color: green; /* Cor verde para valores positivos */
+            font-weight: bold;
+        }
+        .negative {
+            color: #FA3746; /* Cor atual (vermelho) para valores negativos */
+        }
     </style>
 </head>
 <body>
@@ -131,15 +138,22 @@
         let roiUnder = (lucroUnder / stake) * 100;
         let risco = (Math.min(lucroOver, lucroUnder) / stake) * 100;
 
+        // Determinar as classes para as cores (verde para positivo, vermelho para negativo)
+        let lucroOverClass = lucroOver > 0 ? "positive" : "negative";
+        let lucroUnderClass = lucroUnder > 0 ? "positive" : "negative";
+        let roiOverClass = roiOver > 0 ? "positive" : "negative";
+        let roiUnderClass = roiUnder > 0 ? "positive" : "negative";
+        let riscoClass = risco > 0 ? "positive" : "negative";
+
         // Exibir os resultados
         document.getElementById('resultado').innerHTML = `
             <p><span class="bold">Investimento em Over:</span> R$ ${investimentoOver.toFixed(2)}</p>
             <p><span class="bold">Investimento em Under:</span> R$ ${investimentoUnder.toFixed(2)}</p>
-            <p><span class="bold">Lucro em caso de Over:</span> R$ ${lucroOver.toFixed(2)}</p>
-            <p><span class="bold">Lucro em caso de Under:</span> R$ ${lucroUnder.toFixed(2)}</p>
-            <p><span class="bold">ROI (Over):</span> ${roiOver.toFixed(2)}%</p>
-            <p><span class="bold">ROI (Under):</span> ${roiUnder.toFixed(2)}%</p>
-            <p><span class="bold">Risco Percentual:</span> ${risco.toFixed(2)}%</p>
+            <p><span class="bold">Lucro em caso de Over:</span> <span class="${lucroOverClass}">R$ ${lucroOver.toFixed(2)}</span></p>
+            <p><span class="bold">Lucro em caso de Under:</span> <span class="${lucroUnderClass}">R$ ${lucroUnder.toFixed(2)}</span></p>
+            <p><span class="bold">ROI (Over):</span> <span class="${roiOverClass}">${roiOver.toFixed(2)}%</span></p>
+            <p><span class="bold">ROI (Under):</span> <span class="${roiUnderClass}">${roiUnder.toFixed(2)}%</span></p>
+            <p><span class="bold">Risco Percentual:</span> <span class="${riscoClass}">${risco.toFixed(2)}%</span></p>
             <p><span class="bold">Arbitragem:</span> <span class="${arbitragemClasse}">${arbitragemTexto}</span></p>
         `;
     }
